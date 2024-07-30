@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	<select id="selectBoardList" resultType="com.gn.board.vo.Board"
+	parameterType="com.gn.board.vo.Board">
+		SELECT *
+		FROM `board`
+		<where>
+			<if test="bad_word != null and bad_word.size != 0">
+				AND board_title NOT IN 
+				<foreach collection="bad_word" item="item"
+				open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test='board_title != null and board_title.equals("") == false'>
+				 AND board_title LIKE CONCAT('%',#{board_title},'%')
+			</if>
+			<if test='board_content != null and board_content.equals("") == false'>
+				 AND board_content LIKE CONCAT('%',#{board_content},'%')
+			</if>
+		</where>
+		<choose>
+			<when test='order_type != null and order_type.equals("2") == true'>
+				ORDER BY reg_date ASC
+			</when>
+			<otherwise>
+				ORDER BY reg_date DESC
+			</otherwise>
+		</choose>
+		LIMIT #{limitPageNo}, #{numPerPage}
+	</select>
+	
+	<select id="selectBoardCount" resultType ="int" 
+	parameterType="com.gn.board.vo.Board">
+		SELECT COUNT(*)
+		FROM `board`
+		<where>
+			<if test="bad_word != null and bad_word.size != 0">
+				AND board_title NOT IN 
+				<foreach collection="bad_word" item="item"
+				open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test='board_title != null and board_title.equals("") == false'>
+				 AND board_title LIKE CONCAT('%',#{board_title},'%')
+			</if>
+			<if test='board_content != null and board_content.equals("") == false'>
+				 AND board_content LIKE CONCAT('%',#{board_content},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectBoardOne" resultType="com.gn.board.vo.Board"
+	parameterType="_int">
+		SELECT *
+		FROM `board`
+		WHERE board_no = #{board_no}
+	</select>
+	
+	<update id="updateBoard" parameterType="com.gn.board.vo.Board">
+		UPDATE `board`
+		SET board_title = #{board_title},
+		 	board_content = #{board_content}
+		WHERE board_no = #{board_no}
+		
+	</update>
+	
+	<delete id="deleteBoard" parameterType="_int">
+		DELETE FROM `board` 
+		WHERE board_no = #{board_no}
+	</delete>
+	
+	<insert id="insertBoard" parameterType="_int">
+		INSERT INTO `board` (board_title,board_content) VALUES (#{board_title},#{board_content});
+	</insert>
+		 
+</mapper>
