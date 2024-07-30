@@ -28,6 +28,11 @@
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4 && xhr.status == 200){
 					const resp = xhr.responseText;
+					if(resp == '200'){
+						location.href="<%=request.getContextPath()%>/boardList";
+					}else{
+						alert("게시글 수정중 오류가 발생하였습니다.");
+					}
 				}
 			}
 			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");

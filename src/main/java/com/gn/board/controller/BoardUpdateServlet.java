@@ -35,9 +35,17 @@ public class BoardUpdateServlet extends HttpServlet {
 		b.setBoard_content(boardContent);
 		
 		int result = new BoardService().updateBoard(b);
-		request.setAttribute("result", result); 
 		
-		System.out.println(result);
+		String resp_code = "500";
+		if(result > 0 ) {
+			resp_code = "200";
+		}
+		
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().append(resp_code);
+		
+		
+		
 	}
 
 	
