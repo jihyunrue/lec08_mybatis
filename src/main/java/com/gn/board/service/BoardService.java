@@ -38,4 +38,11 @@ public class BoardService {
 		session.close(); 
 		return result;
 	}
+	
+	public int deleteBoard(int boardNo) {
+		SqlSession session = getSqlSession();
+		int result = new BoardDao().deleteBoard(boardNo,session);
+		session.close();
+		return result;
+	}
 }
