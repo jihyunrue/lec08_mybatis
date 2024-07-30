@@ -18,9 +18,9 @@ public class BoardService {
 		return resultList;
  	}
 	
-	public int selectBoardCount() {
+	public int selectBoardCount(Board option) {
 		SqlSession session = getSqlSession();
-		int count = new BoardDao().selectBoardCount(session);
+		int count = new BoardDao().selectBoardCount(option,session);
 		session.close();
 		return count;
 	}
@@ -42,6 +42,13 @@ public class BoardService {
 	public int deleteBoard(int boardNo) {
 		SqlSession session = getSqlSession();
 		int result = new BoardDao().deleteBoard(boardNo,session);
+		session.close();
+		return result;
+	}
+	
+	public int insertBoard(Board b) {
+		SqlSession session = getSqlSession();
+		int result = new BoardDao().insertBoard(b,session);
 		session.close();
 		return result;
 	}

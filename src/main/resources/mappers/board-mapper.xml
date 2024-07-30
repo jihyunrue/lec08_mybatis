@@ -7,12 +7,37 @@
 	parameterType="com.gn.board.vo.Board">
 		SELECT *
 		FROM `board`
+		<where>
+			<if test='board_title != null and board_title.equals("") == false'>
+				 AND board_title LIKE CONCAT('%',#{board_title},'%')
+			</if>
+			<if test='board_content != null and board_content.equals("") == false'>
+				 AND board_content LIKE CONCAT('%',#{board_content},'%')
+			</if>
+		</where>
+		<choose>
+			<when test='order_type != null and order_type.equals("2") == true'>
+				ORDER BY reg_date ASC
+			</when>
+			<otherwise>
+				ORDER BY reg_date DESC
+			</otherwise>
+		</choose>
 		LIMIT #{limitPageNo}, #{numPerPage}
 	</select>
 	
-	<select id="selectBoardCount" resultType ="int">
+	<select id="selectBoardCount" resultType ="int" 
+	parameterType="com.gn.board.vo.Board">
 		SELECT COUNT(*)
 		FROM `board`
+		<where>
+			<if test='board_title != null and board_title.equals("") == false'>
+				 AND board_title LIKE CONCAT('%',#{board_title},'%')
+			</if>
+			<if test='board_content != null and board_content.equals("") == false'>
+				 AND board_content LIKE CONCAT('%',#{board_content},'%')
+			</if>
+		</where>
 	</select>
 	
 	<select id="selectBoardOne" resultType="com.gn.board.vo.Board"
@@ -34,4 +59,9 @@
 		DELETE FROM `board` 
 		WHERE board_no = #{board_no}
 	</delete>
+	
+	<insert id="insertBoard" parameterType="_int">
+		INSERT INTO `board` (board_title,board_content) VALUES (#{board_title},#{board_content});
+		 
+	</insert>
 </mapper>

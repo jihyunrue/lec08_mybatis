@@ -12,5 +12,14 @@
 	<label for="board_content">내용</label>
 	<textarea name="board_content" id="child_board_content"></textarea>
 	<input type="button" value="등록" onclick="insertBoard();">
+	<script>
+		const insertBoard = function(){
+			const childTitle = document.getElementById("child_board_title").value;
+			const childContent = document.getElementById("child_board_content").value;
+			opener.document.getElementById("parent_board_title").value = childTitle;
+			opener.document.getELementById("parent_board_content").value = childContent;
+			window.close();
+		}
+	</script>
 </body>
 </html>
