@@ -22,13 +22,13 @@
 		WHERE board_no = #{board_no}
 	</select>
 	
-	<select id="updateBoard" parameterType="com.gn.board.vo.Board">
+	<update id="updateBoard" parameterType="com.gn.board.vo.Board">
 		UPDATE `board`
 		SET board_title = #{board_title},
 		 	board_content = #{board_content}
 		WHERE board_no = #{board_no}
 		
-	</select>
+	</update>
 	
 	<delete id="deleteBoard" parameterType="_int">
 		DELETE FROM `board` 

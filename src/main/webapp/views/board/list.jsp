@@ -9,6 +9,7 @@
 <title>게시판 목록</title>
 </head>
 <body>
+	<input type="button" value="등록" onclick="openInsert();">
 	<table border="1">
 		<thead>
 			<tr>
@@ -74,7 +75,8 @@
 		xhr.open('get','<%=request.getContextPath()%>/boardDelete?boardNo='+boardNo);
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
-				const resp =xhr.reponseText;
+				const resp =xhr.responseText;
+				console.log(resp);
 				if(resp == '200'){
 					alert("게시글이 정상적으로 삭제 되었습니다.");
 					location.href="<%=request.getContextPath()%>/boardList";
@@ -85,6 +87,10 @@
 		}
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");  
 		xhr.send();
+	}
+	
+	const openInsert = function(){
+		let newWin = window.open("<%=request.getContextPath()%>/boardInsert","_blank","width=300,height=300");
 	}
 </script>
 </body>
