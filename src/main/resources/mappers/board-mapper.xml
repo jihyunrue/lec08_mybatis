@@ -75,8 +75,9 @@
 		WHERE board_no = #{board_no}
 	</delete>
 	
-	<insert id="insertBoard" parameterType="_int">
-		INSERT INTO `board` (board_title,board_content) VALUES (#{board_title},#{board_content});
+	<insert id="insertBoard" parameterType="com.gn.board.vo.Board">
+		INSERT INTO `board` (board_title,board_content) 
+		VALUES (#{board_title},#{board_content});
 	</insert>
 		 
 </mapper>

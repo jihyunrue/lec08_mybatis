@@ -22,15 +22,15 @@ public class BoardInsertEndServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("parent_board_title");
-		String content = request.getParameter("parent_board_content");
+		String title = request.getParameter("board_title");
+		String content = request.getParameter("board_content");
 		
 		Board b = new Board();
 		b.setBoard_title(title);
 		b.setBoard_content(content);
 	
 		int result = new BoardService().insertBoard(b); 
-		System.out.println("test2");
+		
 		String resp_code = "500";
 		if(result > 0) {
 			resp_code = "200";

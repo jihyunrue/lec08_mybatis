@@ -131,7 +131,7 @@
 					}
 				}
 			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-			xhr.send();
+			xhr.send("board_title="+title+"&board_content="+content);
 			}
 		},1000);
 	}
